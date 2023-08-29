@@ -7,7 +7,7 @@ btn.addEventListener("click", function(e) {
     const name = document.querySelector("#name");
     const value = name.value;
     console.log(value)
-    if(value == "carolina"){
+    if(value == "carolina"|| value == "carol"){
         
         mylove.innerHTML = value.toUpperCase() + "!! isso voce acertou :D";
     } else{
