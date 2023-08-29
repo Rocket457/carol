@@ -5,9 +5,9 @@ const mylove = document.querySelector("#mylove");
 btn.addEventListener("click", function(e) {
     e.preventDefault();
     const name = document.querySelector("#name");
-    const value = name.value;
+    var value = name.value;
     console.log(value)
-    value.toUpperCase()
+    value = value.toUpperCase();
     if(value == "CAROLINA"||value == "CAROL"){
         mylove.innerHTML = value.toUpperCase() + "!! isso voce acertou :D";
     } else{
