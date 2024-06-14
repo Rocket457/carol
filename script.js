@@ -1,19 +1,33 @@
-var btn = document.querySelector("#send")
-const mylove = document.querySelector("#mylove");
+document.addEventListener('DOMContentLoaded', () => {
+    const endpoint = 'https://api.funtranslations.com/translate';
+    
+    const userInput = document.getElementById('userInput');
+    const outputText = document.getElementById('outputText');
+    const translateButton = document.getElementById('translateButton');
+    const languageSelect = document.getElementById('languageSelect');
 
+    // Função para traduzir texto usando a API FunTranslations
+    async function translateText() {
+        const selectedLanguage = languageSelect.value.toLowerCase().replace(" ", "-");
+        const textToTranslate = encodeURIComponent(userInput.value);
 
-btn.addEventListener("click", function(e) {
-    e.preventDefault();
-    const name = document.querySelector("#name");
-    var value = name.value;
-    console.log(value)
-    value = value.toUpperCase();
-    if(value == "CAROLINA"||value == "CAROL"){
-        mylove.innerHTML = value.toUpperCase() + "!! isso voce acertou :D";
-    } else{
-        mylove.innerHTML = "Não o nome dela não é " + value + ", voce errou o nome dela :(";
+        try {
+            const response = await fetch(`${endpoint}/${selectedLanguage}.json?text=${textToTranslate}`);
+
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+
+            const data = await response.json();
+            const translatedText = data.contents.translated;
+
+            // Atualizar o texto de saída com a tradução
+            outputText.textContent = translatedText;
+        } catch (error) {
+            console.error('Erro ao traduzir texto:', error);
+            outputText.textContent = 'Erro ao traduzir. Por favor, tente novamente mais tarde.';
+        }
     }
-
-
+    // Event listener para o botão de traduzir
+    translateButton.addEventListener('click', translateText);
 });
-
